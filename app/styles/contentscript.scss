@@ -1,7 +1,7 @@
 .js-actionMultirecommend {
   position: relative;
 
-  &:hover .clappe__superClap {
+  &:hover .clappe:not(.clappe--disabled) .clappe__superClap {
     opacity: 1;
     transform: translate(60px, -20px) scale(1);
   }

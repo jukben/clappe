@@ -1,6 +1,10 @@
 import React from 'react';
+import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
+import classNames from 'classnames';
+import { store } from './index';
 
-export default class Clappe extends React.Component {
+class ClappeContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -9,6 +13,7 @@ export default class Clappe extends React.Component {
 
   makeParty() {
     const { dataPostId, userId, xsfrToken } = this.props;
+
     fetch(`https://medium.com/_/api/posts/${dataPostId}/claps`, {
       method: 'POST',
       credentials: 'include',
@@ -24,11 +29,23 @@ export default class Clappe extends React.Component {
         userId,
       }),
     });
+
+    store.addSuperClap();
+  }
+
+  isDisabled() {
+    return store.clapCount >= 50;
   }
 
   render() {
+    console.log(toJS(store));
+
     return (
-      <div className={'clappe'}>
+      <div
+        className={classNames('clappe', {
+          'clappe--disabled': this.isDisabled(),
+        })}
+      >
         <div className={'clappe__superClap'} onClick={this.makeParty}>
           🎉
         </div>
@@ -36,3 +53,5 @@ export default class Clappe extends React.Component {
     );
   }
 }
+
+export default observer(ClappeContainer);
