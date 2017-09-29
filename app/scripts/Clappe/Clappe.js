@@ -27,16 +27,15 @@ class ClappeContainer extends React.Component {
     const { type } = this.props;
     return (
       <div
-        className={classNames('clappe', {
-          'clappe--disabled': this.isDisabled(),
-          'clappe--left': type === CLAP_TYPE.LEFT,
-          'clappe--footer': type === CLAP_TYPE.FOOTER,
-          'clappe--bar': type === CLAP_TYPE.BAR,
+        className={classNames('clappe__superClap', {
+          'clappe--superClap--disabled': this.isDisabled(),
+          'clappe__superClap--left': type === CLAP_TYPE.LEFT,
+          'clappe__superClap--footer': type === CLAP_TYPE.FOOTER,
+          'clappe__superClap--bar': type === CLAP_TYPE.BAR,
         })}
+        onClick={this.superClick}
       >
-        <div className={'clappe__superClap'} onClick={this.superClick}>
-          🎉
-        </div>
+        🎉
       </div>
     );
   }

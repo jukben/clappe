@@ -98,13 +98,17 @@ export default class ClappeDriver {
 
     [...clappeContainers].forEach(node => {
       const clappeButton = node.querySelector(CLAP_BUTTON_SELECTOR);
+
+      const app = node.appendChild(document.createElement('div'));
+      app.classList.add('clappe');
+
       ReactDOM.render(
         <Clappe
           type={this.determineType(clappeButton)}
           node={clappeButton}
           superClick={this.superClick}
         />,
-        node.appendChild(document.createElement('div'))
+        app
       );
     });
   }

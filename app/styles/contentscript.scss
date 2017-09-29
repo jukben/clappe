@@ -1,32 +1,59 @@
 .js-actionMultirecommend {
   position: relative;
 
-  &:hover .clappe:not(.clappe--disabled) .clappe__superClap {
+  &:hover .clappe > .clappe__superClap {
     opacity: 1;
-    transform: translate(60px, -20px) scale(1);
+
+    &--disabled {
+      display: none;
+    }
+
+    &--footer {
+      transform: translate(-40px, -40px) scale(1);
+    }
+
+    &--left {
+      transform: translate(40px, -40px) scale(1);
+    }
+
+    &--bar {
+      transform: translate(-43px, 8px) scale(1);
+    }
   }
 }
 
 .clappe {
   position: absolute;
-  top: 0px;
-  left: 0;
+  bottom: 0;
   // z-index: 100;
 
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .clappe__superClap {
   opacity: 0;
-  line-height: 60px;
-  width: 60px;
-  height: 60px;
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 999em;
   text-align: center;
   transition: 0.2s all;
   transform: translate(0, 0) scale(0);
+
+  &--bar {
+    line-height: 25px;
+    font-size: 12px;
+    width: 25px;
+    height: 25px;
+
+    transform: translate(-15px, 8px) scale(0);
+  }
 
   &:hover {
     cursor: pointer;
