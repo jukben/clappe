@@ -58,10 +58,10 @@
     "yargs": "^8.x.x"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
-    "mobx": "^3.3.0",
-    "mobx-react": "^4.3.3",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "classnames": "2.2.5",
+    "mobx": "3.3.0",
+    "mobx-react": "4.3.3",
+    "react": "16.0.0",
+    "react-dom": "16.0.0"
   }
 }
