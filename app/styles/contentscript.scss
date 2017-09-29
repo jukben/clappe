@@ -1,0 +1,35 @@
+.js-actionMultirecommend {
+  position: relative;
+
+  &:hover .clappe__superClap {
+    opacity: 1;
+    transform: translate(60px, -20px) scale(1);
+  }
+}
+
+.clappe {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  // z-index: 100;
+
+  width: 90px;
+  height: 90px;
+}
+
+.clappe__superClap {
+  opacity: 0;
+  line-height: 60px;
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 999em;
+  text-align: center;
+  transition: 0.2s all;
+  transform: translate(0, 0) scale(0);
+
+  &:hover {
+    cursor: pointer;
+    border-color: #00ab6b;
+  }
+}
