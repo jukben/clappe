@@ -9,6 +9,7 @@ import {
   CLAP_UNDO_BUTTON_SELECTOR,
   CLAP_CONTAINER_SELECTOR,
   CLAP_TYPE,
+  CLAP_SOUND,
 } from './constants';
 
 import Clappe from './Clappe';
@@ -77,6 +78,7 @@ export default class ClappeDriver {
       });
     }
 
+    chrome.runtime.sendMessage({ sound: CLAP_SOUND.SUPER });
     window.requestAnimationFrame(click);
   }
 
@@ -90,6 +92,12 @@ export default class ClappeDriver {
 
     [...clappeButtons].forEach(node =>
       node.addEventListener('mousedown', () => store.addClap())
+    );
+
+    [...clappeButtons].forEach(node =>
+      node.addEventListener('click', () => {
+        chrome.runtime.sendMessage({ sound: CLAP_SOUND.NORMAL });
+      })
     );
 
     [...clappeUndo].forEach(node =>

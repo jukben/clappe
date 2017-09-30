@@ -8,3 +8,7 @@ export const CLAP_TYPE = {
   FOOTER: 'post_actions_footer',
   BAR: 'post_actions_bar',
 };
+export const CLAP_SOUND = {
+  NORMAL: 'clap.mp3',
+  SUPER: 'superclap.mp3',
+};
