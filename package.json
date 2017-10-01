@@ -6,16 +6,15 @@
   "scripts": {
     "start": "npm run dev:chrome",
     "build": "npm run build:chrome",
-    "build:chrome": "gulp pack --production --vendor=chrome",
-    "build:firefox": "gulp pack --production --vendor=firefox",
-    "build:opera": "gulp pack --production --vendor=opera",
-    "build:edge": "gulp pack --production --vendor=edge",
+    "build:chrome": "NODE_ENV=production gulp pack --production --vendor=chrome",
+    "build:firefox": "NODE_ENV=production gulp gulp pack --production --vendor=firefox",
+    "build:opera": "NODE_ENV=production gulp gulp pack --production --vendor=opera",
+    "build:edge": "NODE_ENV=production gulp gulp pack --production --vendor=edge",
     "dev": "npm run dev:chrome",
     "dev:chrome": "NODE_ENV=development gulp --watch --vendor=chrome",
-    "dev:firefox": "gulp --watch --vendor=firefox",
-    "dev:opera": "gulp --watch --vendor=opera",
-    "dev:edge": "gulp --watch --vendor=edge",
-    "lint": "standard"
+    "dev:firefox": "NODE_ENV=development gulp --watch --vendor=firefox",
+    "dev:opera": "NODE_ENV=development gulp --watch --vendor=opera",
+    "dev:edge": "NODE_ENV=development gulp --watch --vendor=edge"
   },
   "standard": {
     "globals": [
@@ -52,7 +51,6 @@
     "gulp-util": "3.x.x",
     "gulp-zip": "^4.x.x",
     "require-dir": "0.x.x",
-    "standard": "^10.0.2",
     "vinyl-named": "1.x.x",
     "webpack": "3.x.x",
     "webpack-stream": "3.x.x",
