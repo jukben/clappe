@@ -11,7 +11,7 @@ import {
   CLAP_COMMENTS_SELECTOR,
   CLAP_TYPE,
   CLAP_SOUND,
-} from './constants';
+} from '../constants';
 
 import Clappe from './Clappe';
 

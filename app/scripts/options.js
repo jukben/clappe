@@ -4,8 +4,12 @@ import 'chromereload/devonly';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { CLAP_DEFAULT_SETTINGS } from './Clappe/constants';
-import { getNewSettings } from './Clappe/helpers';
+import {
+  CLAP_DEFAULT_SETTINGS,
+  CLAP_LOCAL_SETTINGS,
+  CLAP_SYNC_SETTINGS,
+} from './constants';
+import { getNewSettings } from './helpers';
 
 class Options extends React.Component {
   constructor() {
@@ -16,24 +20,14 @@ class Options extends React.Component {
   }
 
   componentDidMount() {
+    const setDefaultState = settings => this.setState({ ...settings });
+    chrome.storage.onChanged.addListener(this.updateState);
+
     // sync storage
-    chrome.storage.sync.get(
-      {
-        sounds: true,
-      },
-      settings => this.setState({ ...settings })
-    );
+    chrome.storage.sync.get(CLAP_SYNC_SETTINGS, setDefaultState);
 
     // local storage
-    chrome.storage.local.get(
-      {
-        clap: null,
-        superClap: null,
-      },
-      settings => this.setState({ ...settings })
-    );
-
-    chrome.storage.onChanged.addListener(this.updateState);
+    chrome.storage.local.get(CLAP_LOCAL_SETTINGS, setDefaultState);
   }
 
   updateState = objects => this.setState({ ...getNewSettings(objects) });

@@ -14,7 +14,13 @@ export const CLAP_SOUND = {
   SUPER: 'superClap',
 };
 export const CLAP_DEFAULT_SETTINGS = {
+  ...CLAP_SYNC_SETTINGS,
+  ...CLAP_LOCAL_SETTINGS,
+};
+export const CLAP_SYNC_SETTINGS = {
   sounds: true,
+};
+export const CLAP_LOCAL_SETTINGS = {
   clap: null,
   superClap: null,
 };

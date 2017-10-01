@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import classNames from 'classnames';
 import { store } from './index';
-import { CLAP_LIMIT, CLAP_TYPE } from './constants';
+import { CLAP_LIMIT, CLAP_TYPE } from '../constants';
 
 class ClappeContainer extends React.Component {
   isDisabled() {
