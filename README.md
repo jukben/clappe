@@ -1,14 +1,22 @@
 # clappe
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+> Clap like the whole crowd. Make your claps be heard on Medium.
+
+<img src="https://i.imgur.com/kl1cBJk.png" width="500">
+
+Tiny extension to make your claps be heard on Medium. Also providing super clap functionality if you want to be really supportive as a crowd.
 
 ## Installation
 
-	$ npm install
+	npm install
 
 ## Usage
 
-Run `$ gulp --watch` and load the `dist`-directory into chrome.
+Run
+  
+    npm run dev
+  
+And load the `dist`-directory into chrome.
 
 ## Entryfiles (bundles)
 
@@ -56,18 +64,6 @@ or
     $ gulp release    // => X.0.0
 
 
-## Globals
-
-The build tool also defines a variable named `process.env.NODE_ENV` in your scripts. It will be set to `development` unless you use the `--production` option.
-
-
-**Example:** `./app/background.js`
-
-```javascript
-if(process.env.NODE_ENV === 'development'){
-  console.log('We are in development mode!');
-}
-```
 
 
 

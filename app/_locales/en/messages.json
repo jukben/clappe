@@ -1,18 +1,18 @@
 {
   "appName": {
-    "message": "clappe",
+    "message": "Clappe",
     "description": "The name of the application"
   },
   "appShortName": {
-    "message": "clappe",
+    "message": "Clappe",
     "description": "The short_name (maximum of 12 characters recommended) is a short version of the app's name."
   },
   "appDescription": {
-    "message": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "message": "Clap like the whole crowd. Make your claps be heard on Medium.",
     "description": "The description of the application"
   },
   "browserActionTitle": {
-    "message": "clappe",
+    "message": "Clappe",
     "description": "The title of the browser action button"
   }
 }

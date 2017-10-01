@@ -60,14 +60,12 @@ export default class ClappeDriver {
 
   superClick(node) {
     const mouseDownEvent = new Event('mousedown', { bubbles: true });
-    const clickEvent = new Event('click', { bubbles: true });
     const mouseUpEvent = new Event('mouseup', { bubbles: true });
 
     let clickCounter = 0;
     const clickLimit = CLAP_LIMIT - store.clapCount;
 
     function click() {
-      node.dispatchEvent(clickEvent);
       node.dispatchEvent(mouseDownEvent);
 
       setTimeout(function() {
