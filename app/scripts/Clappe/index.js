@@ -8,6 +8,7 @@ import {
   CLAP_BUTTON_SELECTOR,
   CLAP_UNDO_BUTTON_SELECTOR,
   CLAP_CONTAINER_SELECTOR,
+  CLAP_COMMENTS_SELECTOR,
   CLAP_TYPE,
   CLAP_SOUND,
 } from './constants';
@@ -34,7 +35,6 @@ export const store = observable({
 export default class ClappeDriver {
   constructor(html) {
     this.html = document.body.innerHTML;
-    this.superClick = this.superClick.bind(this);
   }
 
   getTotalClapCount() {
@@ -59,17 +59,19 @@ export default class ClappeDriver {
   }
 
   superClick(node) {
-    const mousedownEvent = new Event('mousedown', { bubbles: true });
-    const mouseupEvent = new Event('mouseup', { bubbles: true });
+    const mouseDownEvent = new Event('mousedown', { bubbles: true });
+    const clickEvent = new Event('click', { bubbles: true });
+    const mouseUpEvent = new Event('mouseup', { bubbles: true });
 
     let clickCounter = 0;
     const clickLimit = CLAP_LIMIT - store.clapCount;
 
     function click() {
-      node.dispatchEvent(mousedownEvent);
+      node.dispatchEvent(clickEvent);
+      node.dispatchEvent(mouseDownEvent);
 
       setTimeout(function() {
-        node.dispatchEvent(mouseupEvent);
+        node.dispatchEvent(mouseUpEvent);
         clickCounter++;
 
         if (clickCounter < clickLimit) {
@@ -86,26 +88,41 @@ export default class ClappeDriver {
     store.totalClapCount = this.getTotalClapCount();
     store.clapCount = this.getClapCount();
 
-    const clappeContainers = document.querySelectorAll(CLAP_CONTAINER_SELECTOR);
-    const clappeButtons = document.querySelectorAll(CLAP_BUTTON_SELECTOR);
-    const clappeUndo = document.querySelectorAll(CLAP_UNDO_BUTTON_SELECTOR);
+    document.body.addEventListener('click', event => {
+      let target = event.target;
+
+      const containsFactory = node => (...classNames) => {
+        return classNames.some(
+          name => node.classList && node.classList.contains(name)
+        );
+      };
+
+      while (target) {
+        const contain = containsFactory(target);
+
+        if (contain(CLAP_COMMENTS_SELECTOR, CLAP_BUTTON_SELECTOR)) {
+          return chrome.runtime.sendMessage({ sound: CLAP_SOUND.NORMAL });
+        }
+
+        if (contain(CLAP_UNDO_BUTTON_SELECTOR)) {
+          return store.undo();
+        }
+
+        target = target.parentNode;
+      }
+    });
+
+    const clappeContainers = document.getElementsByClassName(
+      CLAP_CONTAINER_SELECTOR
+    );
+    const clappeButtons = document.getElementsByClassName(CLAP_BUTTON_SELECTOR);
 
     [...clappeButtons].forEach(node =>
       node.addEventListener('mousedown', () => store.addClap())
     );
 
-    [...clappeButtons].forEach(node =>
-      node.addEventListener('click', () => {
-        chrome.runtime.sendMessage({ sound: CLAP_SOUND.NORMAL });
-      })
-    );
-
-    [...clappeUndo].forEach(node =>
-      node.addEventListener('click', () => store.undo())
-    );
-
     [...clappeContainers].forEach(node => {
-      const clappeButton = node.querySelector(CLAP_BUTTON_SELECTOR);
+      const clappeButton = node.querySelector(`.${CLAP_BUTTON_SELECTOR}`);
 
       const app = node.appendChild(document.createElement('div'));
       app.classList.add('clappe');

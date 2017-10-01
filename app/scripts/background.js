@@ -1,42 +1,46 @@
 // Enable chromereload by uncommenting this line:
 import 'chromereload/devonly';
 import { Howl } from 'howler';
-import { CLAP_SOUND } from './Clappe/constants';
+import { CLAP_SOUND, CLAP_DEFAULT_SETTINGS } from './Clappe/constants';
+import { getNewSettings } from './Clappe/helpers';
 
-let soundsAvailable = true;
+let settings = { ...CLAP_DEFAULT_SETTINGS };
 
-chrome.storage.onChanged.addListener(({ sounds }) => {
-  if (!sounds) return;
-
-  soundsAvailable = sounds.newValue;
+chrome.storage.onChanged.addListener(changes => {
+  settings = { ...settings, ...getNewSettings(changes) };
 });
 
 chrome.storage.sync.get(
   {
-    sounds: false,
+    sounds: true,
   },
-  ({ sounds }) => (soundsAvailable = sounds)
+  cloudSettings => {
+    settings = { ...settings, ...cloudSettings };
+  }
 );
 
-const SOUNDS = {
-  [CLAP_SOUND.NORMAL]: new Howl({
-    src: [chrome.runtime.getURL('sounds/clap.mp3')],
-  }),
-  [CLAP_SOUND.SUPER]: new Howl({
-    src: [chrome.runtime.getURL('sounds/superClap.mp3')],
-  }),
+chrome.storage.local.get(
+  {
+    clap: null,
+    superClap: null,
+  },
+  localSettings => {
+    settings = { ...settings, ...localSettings };
+  }
+);
+
+const playSound = type => {
+  const defaultSounds = {
+    [CLAP_SOUND.NORMAL]: chrome.runtime.getURL('sounds/clap.mp3'),
+    [CLAP_SOUND.SUPER]: chrome.runtime.getURL('sounds/superClap.mp3'),
+  };
+
+  console.log(settings[type] || defaultSounds[type]);
+  new Howl({
+    src: settings[type] || defaultSounds[type],
+  }).play();
 };
 
 chrome.runtime.onMessage.addListener(({ sound }) => {
-  soundsAvailable && SOUNDS[sound].play();
+  if (settings.sounds) playSound(sound);
 });
-
-chrome.runtime.onInstalled.addListener(details => {
-  console.log('previousVersion', details.previousVersion);
-});
-
-chrome.tabs.onUpdated.addListener(tabId => {
-  chrome.pageAction.show(tabId);
-});
-
-console.log(`'Allo 'Allo! Event Page for Page Action`);

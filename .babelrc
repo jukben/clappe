@@ -1,16 +1,7 @@
 {
   "presets": [
-    "react",
-    [
-      "env",
-      {
-        "targets": {
-          "browsers": "last 2 versions"
-        },
-        "useBuiltIns": true,
-        "debug": false
-      }
-    ]
+    "env",
+    "react-app"
   ],
   "ignore": [
     "node_modules"
