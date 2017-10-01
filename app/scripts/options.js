@@ -11,6 +11,34 @@ import {
 } from './constants';
 import { getNewSettings } from './helpers';
 
+class File extends React.PureComponent {
+  removeSound = e => this.props.removeSound(this.props.id);
+
+  soundUpload = e => this.props.soundUpload(this.props.id)(e);
+
+  render() {
+    const { id, name, file } = this.props;
+
+    return (
+      <div className="settings__file">
+        <span>{name}</span>
+        {file ? (
+          <button onClick={this.removeSound}>Reset to default</button>
+        ) : (
+          <div>
+            <input
+              id={id}
+              type="file"
+              onChange={this.soundUpload}
+              accept=".mp3, .waw"
+            />
+            <label htmlFor={id}>Select file</label>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
 class Options extends React.Component {
   constructor() {
     super();
@@ -51,7 +79,7 @@ class Options extends React.Component {
     };
   };
 
-  removeSound = placeholder => e => {
+  removeSound = placeholder => {
     chrome.storage.local.set({
       [placeholder]: null,
     });
@@ -61,9 +89,9 @@ class Options extends React.Component {
     const { sounds, clap, superClap } = this.state;
 
     return (
-      <div>
+      <div className="settings">
         <h2>Misc</h2>
-        <div>
+        <div className="settings__item">
           <label>
             <input
               type="checkbox"
@@ -74,28 +102,34 @@ class Options extends React.Component {
           </label>
         </div>
         <h2>Custom sounds</h2>
-        <div>
-          {clap ? (
-            <button onClick={this.removeSound('clap')}>Remove</button>
-          ) : (
-            <input
-              type="file"
-              onChange={this.soundUpload('clap')}
-              accept=".mp3, .waw"
+        {[
+          {
+            name: 'Clap',
+            id: 'clap',
+            file: clap,
+          },
+          {
+            name: 'Super clap',
+            id: 'superClap',
+            file: superClap,
+          },
+        ].map(({ name, id, file }) => (
+          <div key={id} className="settings__item">
+            <File
+              name={name}
+              id={id}
+              file={file}
+              removeSound={this.removeSound}
+              soundUpload={this.soundUpload}
             />
-          )}
-        </div>
-        <div>
-          {superClap ? (
-            <button onClick={this.removeSound('superClap')}>Remove</button>
-          ) : (
-            <input
-              type="file"
-              onChange={this.soundUpload('superClap')}
-              accept=".mp3, .waw"
-            />
-          )}
-        </div>
+          </div>
+        ))}
+        <footer>
+          {'Built with ❤️ by '}
+          <a href="https://jukben.cz">jukben</a>
+          {'. Licensed under MIT. Code on '}
+          <a href="https://github.com/jukben/clappe">GitHub</a>.
+        </footer>
       </div>
     );
   }

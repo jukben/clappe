@@ -1,0 +1,54 @@
+.settings {
+  .settings__file input + label,
+  input,
+  button {
+    padding: 5px;
+    border: 1px solid gray;
+    background: transparent;
+    border-radius: 0;
+    color: black;
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+      background-image: linear-gradient(
+        rgb(240, 240, 240),
+        rgb(240, 240, 240) 38%,
+        rgb(224, 224, 224)
+      );
+      box-shadow: none;
+    }
+  }
+
+  input[type='checkbox'] {
+    padding: 0px;
+  }
+}
+
+.settings__item {
+  margin-bottom: 10px;
+}
+
+.settings__file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > div {
+    display: flex;
+  }
+
+  input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+}
