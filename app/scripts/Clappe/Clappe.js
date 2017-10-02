@@ -23,7 +23,7 @@ class ClappeContainer extends React.Component {
         tabIndex={-1}
         role="button"
         className={classNames('clappe__superClap', {
-          'clappe--superClap--disabled': this.isDisabled(),
+          'clappe__superClap--disabled': this.isDisabled(),
           'clappe__superClap--left': type === CLAP_TYPE.LEFT,
           'clappe__superClap--footer': type === CLAP_TYPE.FOOTER,
           'clappe__superClap--bar': type === CLAP_TYPE.BAR,
