@@ -14,12 +14,8 @@
     "dev:chrome": "NODE_ENV=development gulp --watch --vendor=chrome",
     "dev:firefox": "NODE_ENV=development gulp --watch --vendor=firefox",
     "dev:opera": "NODE_ENV=development gulp --watch --vendor=opera",
-    "dev:edge": "NODE_ENV=development gulp --watch --vendor=edge"
-  },
-  "standard": {
-    "globals": [
-      "chrome"
-    ]
+    "dev:edge": "NODE_ENV=development gulp --watch --vendor=edge",
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
@@ -32,6 +28,10 @@
     "chromereload": "0.x.x",
     "debounce": "1.x.x",
     "del": "3.x.x",
+    "eslint": "^4.8.0",
+    "eslint-config-callstack-io": "^0.4.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-react": "^7.4.0",
     "gulp": "3.x.x",
     "gulp-bump": "2.x.x",
     "gulp-cache": "0.x.x",
@@ -50,6 +50,8 @@
     "gulp-tag-version": "1.x.x",
     "gulp-util": "3.x.x",
     "gulp-zip": "^4.x.x",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.2.3",
     "require-dir": "0.x.x",
     "vinyl-named": "1.x.x",
     "webpack": "3.x.x",
@@ -63,5 +65,11 @@
     "mobx-react": "4.3.3",
     "react": "16.0.0",
     "react-dom": "16.0.0"
+  },
+  "lint-staged": {
+    "app/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

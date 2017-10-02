@@ -1,5 +1,5 @@
-// Enable chromereload by uncommenting this line:
-import 'chromereload/devonly';
+import 'chromereload/devonly'; // eslint-disable-line
+
 import { Howl } from 'howler';
 import {
   CLAP_SOUND,

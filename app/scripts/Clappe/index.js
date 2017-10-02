@@ -1,6 +1,5 @@
 import React from 'react';
-import { observable, action, toJS } from 'mobx';
-import { observer } from 'mobx-react';
+import { observable, action } from 'mobx';
 import ReactDOM from 'react-dom';
 
 import {
@@ -37,6 +36,36 @@ export default class ClappeDriver {
     this.html = html || document.body.innerHTML;
   }
 
+  static determineType(node) {
+    const type = node.getAttribute('data-action-source').match(/^([a-z_]*)/);
+
+    return type ? type[1] : CLAP_TYPE.DISABLED;
+  }
+
+  static superClick(node) {
+    const mouseDownEvent = new Event('mousedown', { bubbles: true });
+    const mouseUpEvent = new Event('mouseup', { bubbles: true });
+
+    let clickCounter = 0;
+    const clickLimit = CLAP_LIMIT - store.clapCount;
+
+    function click() {
+      node.dispatchEvent(mouseDownEvent);
+
+      setTimeout(() => {
+        node.dispatchEvent(mouseUpEvent);
+        clickCounter++;
+
+        if (clickCounter < clickLimit) {
+          window.requestAnimationFrame(click);
+        }
+      });
+    }
+
+    chrome.runtime.sendMessage({ sound: CLAP_SOUND.SUPER });
+    window.requestAnimationFrame(click);
+  }
+
   getTotalClapCount() {
     const totalClapCountRegex = /"totalClapCount":([0-9]*)/;
     return (
@@ -52,36 +81,6 @@ export default class ClappeDriver {
     );
   }
 
-  determineType(node) {
-    const type = node.getAttribute('data-action-source').match(/^([a-z_]*)/);
-
-    return type ? type[1] : CLAP_TYPE.DISABLED;
-  }
-
-  superClick(node) {
-    const mouseDownEvent = new Event('mousedown', { bubbles: true });
-    const mouseUpEvent = new Event('mouseup', { bubbles: true });
-
-    let clickCounter = 0;
-    const clickLimit = CLAP_LIMIT - store.clapCount;
-
-    function click() {
-      node.dispatchEvent(mouseDownEvent);
-
-      setTimeout(function() {
-        node.dispatchEvent(mouseUpEvent);
-        clickCounter++;
-
-        if (clickCounter < clickLimit) {
-          window.requestAnimationFrame(click);
-        }
-      });
-    }
-
-    chrome.runtime.sendMessage({ sound: CLAP_SOUND.SUPER });
-    window.requestAnimationFrame(click);
-  }
-
   install() {
     store.totalClapCount = this.getTotalClapCount();
     store.clapCount = this.getClapCount();
@@ -89,11 +88,10 @@ export default class ClappeDriver {
     document.body.addEventListener('click', event => {
       let target = event.target;
 
-      const containsFactory = node => (...classNames) => {
-        return classNames.some(
+      const containsFactory = node => (...classNames) =>
+        classNames.some(
           name => node.classList && node.classList.contains(name)
         );
-      };
 
       while (target) {
         const contain = containsFactory(target);
@@ -108,6 +106,8 @@ export default class ClappeDriver {
 
         target = target.parentNode;
       }
+
+      return true;
     });
 
     const clappeContainers = document.getElementsByClassName(
@@ -127,9 +127,9 @@ export default class ClappeDriver {
 
       ReactDOM.render(
         <Clappe
-          type={this.determineType(clappeButton)}
+          type={ClappeDriver.determineType(clappeButton)}
           node={clappeButton}
-          superClick={this.superClick}
+          superClick={ClappeDriver.superClick}
         />,
         app
       );

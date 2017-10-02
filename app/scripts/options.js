@@ -1,5 +1,4 @@
-// Enable chromereload by uncommenting this line:
-import 'chromereload/devonly';
+import 'chromereload/devonly'; // eslint-disable-line
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -12,7 +11,7 @@ import {
 import { getNewSettings } from './helpers';
 
 class File extends React.PureComponent {
-  removeSound = e => this.props.removeSound(this.props.id);
+  removeSound = () => this.props.removeSound(this.props.id);
 
   soundUpload = e => this.props.soundUpload(this.props.id)(e);
 
@@ -39,6 +38,7 @@ class File extends React.PureComponent {
     );
   }
 }
+
 class Options extends React.Component {
   constructor() {
     super();
@@ -92,8 +92,9 @@ class Options extends React.Component {
       <div className="settings">
         <h2>Misc</h2>
         <div className="settings__item">
-          <label>
+          <label htmlFor={'sounds'}>
             <input
+              id="sounds"
               type="checkbox"
               checked={sounds}
               onChange={this.toggleCheckbox}

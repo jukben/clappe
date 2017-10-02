@@ -1,6 +1,5 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { toJS } from 'mobx';
 import classNames from 'classnames';
 import { store } from './index';
 import { CLAP_LIMIT, CLAP_TYPE } from '../constants';
@@ -21,6 +20,8 @@ class ClappeContainer extends React.Component {
     const { type } = this.props;
     return (
       <div
+        tabIndex={-1}
+        role="button"
         className={classNames('clappe__superClap', {
           'clappe--superClap--disabled': this.isDisabled(),
           'clappe__superClap--left': type === CLAP_TYPE.LEFT,
@@ -29,7 +30,9 @@ class ClappeContainer extends React.Component {
         })}
         onClick={this.superClick}
       >
-        🎉
+        <span aria-label="make super clap" role="img">
+          🎉
+        </span>
       </div>
     );
   }
