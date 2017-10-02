@@ -67,7 +67,7 @@
     "react-dom": "16.0.0"
   },
   "lint-staged": {
-    "app/scripts/*.js": [
+    "*.js": [
       "eslint --fix",
       "git add"
     ]
