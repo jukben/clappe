@@ -1,7 +1,7 @@
 {
   "name": "clappe",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Clap like the whole crowd. Make your claps be heard on Medium.",
   "scripts": {
     "start": "npm run dev:chrome",
