@@ -34,7 +34,7 @@ export const store = observable({
 
 export default class ClappeDriver {
   constructor(html) {
-    this.html = document.body.innerHTML;
+    this.html = html || document.body.innerHTML;
   }
 
   getTotalClapCount() {
