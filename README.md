@@ -1,5 +1,7 @@
 # clappe
 
+[Install to Google Chrome](https://chrome.google.com/webstore/detail/gfmcijindndhaflgmmkkcihndcclaled)
+
 > Clap like the whole crowd. Make your claps be heard on Medium.
 <div align="center">
 <img src="https://i.imgur.com/kl1cBJk.png" width="500">
@@ -7,14 +9,9 @@
 
 Tiny extension to make your claps be heard on Medium. Also providing super clap functionality if you want to be really supportive as a crowd.
 
-## Installation
+## Development
 
-	npm install
-
-## Usage
-
-Run
-  
+    npm install
     npm run dev
   
 And load the `dist`-directory into chrome.
