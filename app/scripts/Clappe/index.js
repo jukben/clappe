@@ -120,10 +120,18 @@ export default class ClappeDriver {
     );
 
     [...clappeContainers].forEach(node => {
-      console.log('node', node);
       const clappeButton = node.querySelector(
         `.${CLAP_BUTTON_SELECTOR}:not(:disabled)`
       );
+
+      if (!clappeButton) {
+        console.info(
+          '%c 🙅 Available button not found!',
+          'border: 1px solid black; color: black'
+        );
+
+        return;
+      }
 
       const app = node.appendChild(document.createElement('div'));
       app.classList.add('clappe');
