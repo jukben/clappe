@@ -120,7 +120,10 @@ export default class ClappeDriver {
     );
 
     [...clappeContainers].forEach(node => {
-      const clappeButton = node.querySelector(`.${CLAP_BUTTON_SELECTOR}`);
+      console.log('node', node);
+      const clappeButton = node.querySelector(
+        `.${CLAP_BUTTON_SELECTOR}:not(:disabled)`
+      );
 
       const app = node.appendChild(document.createElement('div'));
       app.classList.add('clappe');
