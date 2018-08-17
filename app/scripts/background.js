@@ -1,13 +1,11 @@
-import 'chromereload/devonly'; // eslint-disable-line
-
-import { Howl } from 'howler';
+import { Howl } from "howler";
 import {
   CLAP_SOUND,
   CLAP_DEFAULT_SETTINGS,
   CLAP_SYNC_SETTINGS,
-  CLAP_LOCAL_SETTINGS,
-} from './constants';
-import { getNewSettings } from './helpers';
+  CLAP_LOCAL_SETTINGS
+} from "./constants";
+import { getNewSettings } from "./helpers";
 
 let settings = { ...CLAP_DEFAULT_SETTINGS };
 
@@ -24,12 +22,12 @@ chrome.storage.local.get(CLAP_LOCAL_SETTINGS, updateSettings);
 
 const playSound = type => {
   const defaultSounds = {
-    [CLAP_SOUND.NORMAL]: chrome.runtime.getURL('sounds/clap.mp3'),
-    [CLAP_SOUND.SUPER]: chrome.runtime.getURL('sounds/superClap.mp3'),
+    [CLAP_SOUND.NORMAL]: chrome.runtime.getURL("sounds/clap.mp3"),
+    [CLAP_SOUND.SUPER]: chrome.runtime.getURL("sounds/superClap.mp3")
   };
 
   new Howl({
-    src: settings[type] || defaultSounds[type],
+    src: settings[type] || defaultSounds[type]
   }).play();
 };
 

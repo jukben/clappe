@@ -1,0 +1,53 @@
+.js-actionMultirecommend {
+  position: relative;
+}
+.js-actionMultirecommend:hover .clappe > .clappe__superClap {
+  opacity: 1;
+}
+.js-actionMultirecommend:hover .clappe > .clappe__superClap--disabled {
+  opacity: 0;
+  transform: translate(0, 0) scale(0);
+}
+.js-actionMultirecommend:hover .clappe > .clappe__superClap--footer {
+  transform: translate(-40px, -40px) scale(1);
+}
+.js-actionMultirecommend:hover .clappe > .clappe__superClap--left {
+  transform: translate(40px, -40px) scale(1);
+}
+.js-actionMultirecommend:hover .clappe > .clappe__superClap--bar {
+  transform: translate(-43px, 8px) scale(1);
+}
+
+.clappe {
+  position: absolute;
+  bottom: 0;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clappe__superClap {
+  opacity: 0;
+  outline: none;
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 999em;
+  text-align: center;
+  transition: 0.2s all;
+  transform: translate(0, 0) scale(0);
+}
+.clappe__superClap--bar {
+  line-height: 25px;
+  font-size: 12px;
+  width: 25px;
+  height: 25px;
+  transform: translate(-15px, 8px) scale(0);
+}
+.clappe__superClap:hover {
+  cursor: pointer;
+  border-color: #00ab6b;
+}

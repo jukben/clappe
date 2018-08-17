@@ -1,14 +1,12 @@
-import 'chromereload/devonly'; // eslint-disable-line
-
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 import {
   CLAP_DEFAULT_SETTINGS,
   CLAP_LOCAL_SETTINGS,
-  CLAP_SYNC_SETTINGS,
-} from './constants';
-import { getNewSettings } from './helpers';
+  CLAP_SYNC_SETTINGS
+} from "./constants";
+import { getNewSettings } from "./helpers";
 
 class File extends React.PureComponent {
   removeSound = () => this.props.removeSound(this.props.id);
@@ -64,7 +62,7 @@ class Options extends React.Component {
     const sounds = e.target.checked;
 
     chrome.storage.sync.set({
-      sounds,
+      sounds
     });
   };
 
@@ -74,14 +72,14 @@ class Options extends React.Component {
     reader.readAsDataURL(file);
     reader.onload = () => {
       chrome.storage.local.set({
-        [placeholder]: reader.result,
+        [placeholder]: reader.result
       });
     };
   };
 
   removeSound = placeholder => {
     chrome.storage.local.set({
-      [placeholder]: null,
+      [placeholder]: null
     });
   };
 
@@ -92,7 +90,7 @@ class Options extends React.Component {
       <div className="settings">
         <h2>Misc</h2>
         <div className="settings__item">
-          <label htmlFor={'sounds'}>
+          <label htmlFor={"sounds"}>
             <input
               id="sounds"
               type="checkbox"
@@ -105,15 +103,15 @@ class Options extends React.Component {
         <h2>Custom sounds</h2>
         {[
           {
-            name: 'Clap',
-            id: 'clap',
-            file: clap,
+            name: "Clap",
+            id: "clap",
+            file: clap
           },
           {
-            name: 'Super clap',
-            id: 'superClap',
-            file: superClap,
-          },
+            name: "Super clap",
+            id: "superClap",
+            file: superClap
+          }
         ].map(({ name, id, file }) => (
           <div key={id} className="settings__item">
             <File
@@ -126,9 +124,9 @@ class Options extends React.Component {
           </div>
         ))}
         <footer>
-          {'Built with ❤️ by '}
+          {"Built with ❤️ by "}
           <a href="https://jukben.cz">jukben</a>
-          {'. Licensed under MIT. Code on '}
+          {". Licensed under MIT. Code on "}
           <a href="https://github.com/jukben/clappe">GitHub</a>.
         </footer>
       </div>
@@ -136,4 +134,4 @@ class Options extends React.Component {
   }
 }
 
-ReactDOM.render(<Options />, document.getElementById('options'));
+ReactDOM.render(<Options />, document.getElementById("options"));

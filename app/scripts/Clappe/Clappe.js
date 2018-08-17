@@ -1,8 +1,8 @@
-import React from 'react';
-import { observer } from 'mobx-react';
-import classNames from 'classnames';
-import { store } from './index';
-import { CLAP_LIMIT, CLAP_TYPE } from '../constants';
+import React from "react";
+import { observer } from "mobx-react";
+import classNames from "classnames";
+import { store } from "./index";
+import { CLAP_LIMIT, CLAP_TYPE } from "../constants";
 
 class ClappeContainer extends React.Component {
   isDisabled() {
@@ -22,11 +22,11 @@ class ClappeContainer extends React.Component {
       <div
         tabIndex={-1}
         role="button"
-        className={classNames('clappe__superClap', {
-          'clappe__superClap--disabled': this.isDisabled(),
-          'clappe__superClap--left': type === CLAP_TYPE.LEFT,
-          'clappe__superClap--footer': type === CLAP_TYPE.FOOTER,
-          'clappe__superClap--bar': type === CLAP_TYPE.BAR,
+        className={classNames("clappe__superClap", {
+          "clappe__superClap--disabled": this.isDisabled(),
+          "clappe__superClap--left": type === CLAP_TYPE.LEFT,
+          "clappe__superClap--footer": type === CLAP_TYPE.FOOTER,
+          "clappe__superClap--bar": type === CLAP_TYPE.BAR
         })}
         onClick={this.superClick}
       >
